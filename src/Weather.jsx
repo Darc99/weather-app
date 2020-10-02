@@ -3,50 +3,32 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Weather = () => {
-  const [weather, setWeather] = useState([]);
+  // const [weather, setWeather] = useState([]);
+  const [feelsLike, setFeelsLike] = useState("");
+  const [mainTemp, setMainTemp] = useState("");
+  const [description, setDescription] = useState("");
+  const [main, setMain] = useState("");
+  const [iconID, setIconID] = useState("");
+
   const APIKEY = "1149e8a5ca9b315971e3230a20cdddf9";
+  const [location, setLocation] = useState("London");
+  const [country, setCountry] = useState("uk");
 
-  //   const api_call = async () => {
-  //     const url = `https://api.openweathermap.org/data/2.5/weather?q={London}&appid=${APIKEY}`;
-  //     const req = axios.get(url);
-  //     const res = await req;
-  //     console.log(res);
-  //   };
-
-  //   useEffect(() => {
-  //     api_call();
-  //   }, []);
-
-  async function fetchData(e) {
-    const city = e.target.elements.city.value;
-    const country = e.target.elements.country.value;
-    e.preventDefault();
-    const apiUrl = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${APIKEY}`
+  useEffect(() => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${location},${country}&appid=${APIKEY}`
     )
       .then((res) => res.json())
-      .then((data) => data);
-    if (city && country) {
-      setWeather({
-        data: apiUrl,
-        city: apiUrl.city,
-        // country: apiUrl.sys.country,
-        description: apiUrl.weather[0].description,
-        temperature: apiUrl.main.temp,
-        error: "",
+      .then((data) => {
+        console.log(data);
+        setFeelsLike(data.main.feels_like);
+        setMainTemp(data.main.temp);
+        setDescription(data.weather[0].description);
+        setMain(data.weather[0].main);
+        setIconID(data.weather[0].icon);
+        setLocation(data.name);
       });
-    } else {
-      setWeather({
-        data: "",
-        city: "",
-        country: "",
-        description: "",
-        temperature: "",
-        error: "Please Type A City And Country",
-      });
-    }
-    console.log(apiUrl);
-  }
+  }, [location, country]);
 
   return <div> </div>;
 };
