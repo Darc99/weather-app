@@ -35,7 +35,9 @@ const Weather = () => {
   return (
     <div>
       {/* <Result setFeelsLike={setFeelsLike} /> */}
-      <h1>{setMain}</h1>
+      {/* <h1>{setMain}</h1>
+       */}
+      {JSON.stringify(data)}
     </div>
   );
 };
