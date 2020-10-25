@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Result from "./Result";
-
-import axios from "axios";
 
 const Weather = () => {
   // const [weather, setWeather] = useState([]);
@@ -17,7 +14,7 @@ const Weather = () => {
 
   useEffect(() => {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${location},${country}&appid=${APIKEY}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${APIKEY}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -37,7 +34,12 @@ const Weather = () => {
       {/* <Result setFeelsLike={setFeelsLike} /> */}
       {/* <h1>{setMain}</h1>
        */}
-      {JSON.stringify(data)}
+      {/* {JSON.stringify(setFeelsLike)} */}
+      <h1>Main Temperature : {mainTemp} Degrees Celsius</h1>
+      <h1>Feels like: {feelsLike} Degrees Celsius</h1>
+      <h1>Weather Parameter: {main}</h1>
+      <h1>Description : {description}</h1>
+      <img src={"http://openweathermap.org/img/wn/" + iconID + "@2x.png"}/>
     </div>
   );
 };
